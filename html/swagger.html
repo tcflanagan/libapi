@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap: CSS only -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+          crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://www.tcflanagan.com/fonts/libertine.css" />
+    <link rel="stylesheet" href="/css/swagger-ui-mod.css" />
+    <link rel="stylesheet" href="/css/site.css" />
+
+    <title>Library API — tcflanagan.com</title>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+            <div class="container-fluid">
+
+                <a class="navbar-brand" href="/">
+                    <img width="36" height="36" src="/images/tf-logo.svg" />
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#navbarMain" aria-controls="navbarMain"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div id="navbarMain" class="navbar-collapse collapse">
+
+                    <ul class="navbar-nav">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Home</a>
+                        </li>
+
+                        <li class="nav-item dropdown"> <!-- Application Dropdown List -->
+                            <a class="nav-link dropdown-toggle"
+                                id="appDropdownLink" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Applications
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="appDropdownLink">
+                                <a class="dropdown-item"
+                                    href="https://portfolio.tcflanagan.com/applications">
+                                    Home
+                                </a>
+                                <a class="dropdown-item"
+                                    href="https://portfolio.tcflanagan.com/applications/transport">
+                                    Transport
+                                </a>
+                                <a class="dropdown-item"
+                                    href="https://portfolio.tcflanagan.com/applications/mailadmin">
+                                    MailAdmin
+                                </a>
+                            </ul>
+                        </li> <!-- End Application Dropdown List -->
+
+                        <li class="nav-item dropdown"> <!-- Web App Dropdown List -->
+                            <a class="nav-link dropdown-toggle active" id="webDropdownLink" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Web Apps
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="webDropdownLink">
+                                <a class="dropdown-item" href="https://libng.tcflanagan.com/">
+                                    Library (Angular)
+                                </a>
+                                <a class="dropdown-item active" href="/">
+                                    Library API (PHP)
+                                </a>
+                                <a class="dropdown-item" href="https://libasp.tcflanagan.com">
+                                    Library (ASP.NET)
+                                </a>
+                                <a class="dropdown-item" href="https://libphp.tcflanagan.com">
+                                    Library (PHP)
+                                </a>
+                            </ul>
+                        </li> <!-- End Web App Dropdown List -->
+
+                        <li class="nav-item dropdown"> <!-- Communication Dropdown List -->
+                            <a class="nav-link dropdown-toggle" id="comDropdownLink" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                More
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="comDropdownLink">
+                                <a class="dropdown-item" href="https://portfolio.tcflanagan.com/comm-and-data/writing">
+                                    Technical Communication
+                                </a>
+                                <a class="dropdown-item" href="https://portfolio.tcflanagan.com/comm-and-data/graphics">
+                                    Graphics
+                                </a>
+                                <a class="dropdown-item" href="https://portfolio.tcflanagan.com/comm-and-data/publishing">
+                                    Desktop Publishing
+                                </a>
+                            </ul>
+                        </li> <!-- End Communication Dropdown List -->
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/contact">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="d-none d-md-block col-md-3 col-xl-2"></div>
+            <main role="main" class="col-12 col-md-9 col-xl-8 pb-3">
+                <header class="mt-4 mb-3">
+                    <h1>Library API</h1>
+                </header>
+
+                <div id="swagger-ui"></div>
+
+
+            </main>
+            <div class="d-none d-lg-block col-xl-2"></div>
+        </div>
+    </div>
+
+    <footer class="footer border-top bg-dark text-light text-muted">
+      <div class="container">
+        Copyright &copy; 2021 — Thomas C. Flanagan
+      </div>
+    </footer>
+
+
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"
+            integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js"
+            integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj"
+            crossorigin="anonymous"></script>
+    <!-- Swagger -->
+    <script src="./swagger/dist/swagger-ui-bundle.js" charset="UTF-8"></script>
+    <script src="./swagger/dist/swagger-ui-standalone-preset.js" charset="UTF-8"></script>
+    <script>
+        window.onload = function() {
+            // Begin Swagger UI call region
+            const ui = SwaggerUIBundle({
+                url: "./swagger/swagger.json",
+                dom_id: '#swagger-ui',
+                deepLinking: true,
+                presets: [
+                    SwaggerUIBundle.presets.apis, SwaggerUIStandalonePreset
+                ],
+                plugins: [
+                    SwaggerUIBundle.plugins.DownloadUrl
+                ],
+                layout: "StandaloneLayout"
+            });
+            // End Swagger UI call region
+
+            window.ui = ui;
+        };
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,2104 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Library API",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/books": {
+            "get": {
+                "tags": [
+                    "Books"
+                ],
+                "summary": "Lists all books",
+                "operationId": "getBooks",
+                "responses": {
+                    "200": {
+                        "description": "Details for all known books",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/book_get"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Books"
+                ],
+                "summary": "Adds a new book",
+                "description": "Requires user authentication.",
+                "operationId": "postBook",
+                "requestBody": {
+                    "description": "Book details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/book_post"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Details of new book",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/book_get"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Malformed book object"
+                    }
+                },
+                "security": [
+                    {
+                        "jwt_key": []
+                    }
+                ]
+            }
+        },
+        "/books/{id}": {
+            "get": {
+                "tags": [
+                    "Books"
+                ],
+                "summary": "Lists book details",
+                "operationId": "getBook",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the requested book"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Details of the requested book",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/book_get"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No known book has that ID"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Books"
+                ],
+                "summary": "Updates a book",
+                "description": "Requires user authentication.",
+                "operationId": "putBook",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the book to update",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "description": "Book details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/book_put"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Updated details of book",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/book_get"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Malformed book object"
+                    }
+                },
+                "security": [
+                    {
+                        "jwt_key": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Books"
+                ],
+                "summary": "Deletes a book",
+                "description": "Requires user authentication.",
+                "operationId": "deleteBook",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the book to delete",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Success"
+                    },
+                    "404": {
+                        "description": "Book not found"
+                    }
+                },
+                "security": [
+                    {
+                        "jwt_key": []
+                    }
+                ]
+            }
+        },
+        "/bookstubs": {
+            "get": {
+                "tags": [
+                    "Book Stubs"
+                ],
+                "summary": "Lists all book stubs",
+                "operationId": "getBookStubs",
+                "responses": {
+                    "200": {
+                        "description": "Summaries for all known books",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/book_stub"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/bookstubs/{id}": {
+            "get": {
+                "tags": [
+                    "Book Stubs"
+                ],
+                "summary": "Lists book summary",
+                "operationId": "getBookStub",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the requested book"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Summary of the requested book",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/book_stub"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No known book has that ID"
+                    }
+                }
+            }
+        },
+        "/corpora": {
+            "get": {
+                "tags": [
+                    "Corpora"
+                ],
+                "summary": "Lists all authors' bibliographies",
+                "operationId": "getCorpora",
+                "responses": {
+                    "200": {
+                        "description": "Summary of all authors' bibliographies",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/corpus"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/corpora/{id}": {
+            "get": {
+                "tags": [
+                    "Corpora"
+                ],
+                "summary": "Lists an author's bibliographic summary",
+                "operationId": "getCorpus",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the requested author"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Bibliography of the requested author",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/corpus"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No known author has that ID"
+                    }
+                }
+            }
+        },
+        "/genres": {
+            "get": {
+                "tags": [
+                    "Genres"
+                ],
+                "summary": "Lists all genres",
+                "operationId": "getGenres",
+                "responses": {
+                    "200": {
+                        "description": "Details for all known genres",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/genre_get"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Genres"
+                ],
+                "summary": "Adds a new genre",
+                "description": "Requires user authentication.",
+                "operationId": "postGenre",
+                "requestBody": {
+                    "description": "Genre details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/genre_post"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Details of new genre",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/genre_get"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Malformed genre object"
+                    }
+                },
+                "security": [
+                    {
+                        "jwt_key": []
+                    }
+                ]
+            }
+        },
+        "/genres/{id}": {
+            "get": {
+                "tags": [
+                    "Genres"
+                ],
+                "summary": "Lists genre details",
+                "operationId": "getGenre",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the requested genre"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Details of the requested genre",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/genre_get"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No known genre has that ID"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Genres"
+                ],
+                "summary": "Updates a genre",
+                "description": "Requires user authentication.",
+                "operationId": "putGenre",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the genre to update",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "description": "Genre details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/genre_put"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Updated details of genre",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/genre_get"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Malformed genre object"
+                    }
+                },
+                "security": [
+                    {
+                        "jwt_key": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Genres"
+                ],
+                "summary": "Deletes a genre",
+                "description": "Requires user authentication.",
+                "operationId": "deleteGenre",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the genre to delete",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Success"
+                    },
+                    "404": {
+                        "description": "Genre not found"
+                    }
+                },
+                "security": [
+                    {
+                        "jwt_key": []
+                    }
+                ]
+            }
+        },
+        "/persons": {
+            "get": {
+                "tags": [
+                    "Contributors"
+                ],
+                "summary": "Lists all people",
+                "operationId": "getPersons",
+                "responses": {
+                    "200": {
+                        "description": "Details for all known contributors to books",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/person_get"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Contributors"
+                ],
+                "summary": "Adds a new person",
+                "description": "Requires user authentication.",
+                "operationId": "postPerson",
+                "requestBody": {
+                    "description": "Person or organization details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/person_post"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Details of new person",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/person_get"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Malformed person object"
+                    }
+                },
+                "security": [
+                    {
+                        "jwt_key": []
+                    }
+                ]
+            }
+        },
+        "/persons/{id}": {
+            "get": {
+                "tags": [
+                    "Contributors"
+                ],
+                "summary": "Lists person details",
+                "operationId": "getPerson",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the requested person"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Details of the requested person",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/person_get"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No known person has that ID"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Contributors"
+                ],
+                "summary": "Updates a person",
+                "description": "Requires user authentication.",
+                "operationId": "putPerson",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the person to update",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "description": "Person or organization details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/person_put"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Updated details of person",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/person_get"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Malformed person object"
+                    }
+                },
+                "security": [
+                    {
+                        "jwt_key": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Contributors"
+                ],
+                "summary": "Deletes a person",
+                "description": "Requires user authentication.",
+                "operationId": "deletePerson",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the person to delete",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Success"
+                    },
+                    "404": {
+                        "description": "Person not found"
+                    }
+                },
+                "security": [
+                    {
+                        "jwt_key": []
+                    }
+                ]
+            }
+        },
+        "/series": {
+            "get": {
+                "tags": [
+                    "Series"
+                ],
+                "summary": "Lists all series",
+                "operationId": "getSeriesPlural",
+                "responses": {
+                    "200": {
+                        "description": "Details for all known series",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/series_get"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Series"
+                ],
+                "summary": "Adds a new series",
+                "description": "Requires user authentication.",
+                "operationId": "postSeries",
+                "requestBody": {
+                    "description": "Series details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/series_post"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Details of new series",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/series_get"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Malformed series object"
+                    }
+                },
+                "security": [
+                    {
+                        "jwt_key": []
+                    }
+                ]
+            }
+        },
+        "/series/{id}": {
+            "get": {
+                "tags": [
+                    "Series"
+                ],
+                "summary": "Lists series details",
+                "operationId": "getSeries",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the requested series"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Details of the requested series",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/series_get"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No known series has that ID"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Series"
+                ],
+                "summary": "Updates a series",
+                "description": "Requires user authentication.",
+                "operationId": "putSeries",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the series to update",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "description": "Series details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/series_put"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Updated details of series",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/series_get"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Malformed series object"
+                    }
+                },
+                "security": [
+                    {
+                        "jwt_key": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Series"
+                ],
+                "summary": "Deletes a series",
+                "description": "Requires user authentication.",
+                "operationId": "deleteSeries",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the series to delete",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Success"
+                    },
+                    "404": {
+                        "description": "Series not found"
+                    }
+                },
+                "security": [
+                    {
+                        "jwt_key": []
+                    }
+                ]
+            }
+        },
+        "/tags": {
+            "get": {
+                "tags": [
+                    "Tags"
+                ],
+                "summary": "Lists all tags with details",
+                "operationId": "getTags",
+                "responses": {
+                    "200": {
+                        "description": "Details for all known tags",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/tag_get"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Tags"
+                ],
+                "summary": "Adds a new tag",
+                "description": "Requires user authentication.",
+                "operationId": "postTag",
+                "requestBody": {
+                    "description": "Tag details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/tag_post"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Details of new tag",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/tag_get"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Malformed tag object"
+                    }
+                },
+                "security": [
+                    {
+                        "jwt_key": []
+                    }
+                ]
+            }
+        },
+        "/tags/{id}": {
+            "get": {
+                "tags": [
+                    "Tags"
+                ],
+                "summary": "Lists tag details",
+                "operationId": "getTag",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the requested tag"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Details of the requested tag",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/tag_get"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No known tag has that ID"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Tags"
+                ],
+                "summary": "Updates a tag",
+                "description": "Requires user authentication.",
+                "operationId": "putTag",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the tag to update",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "description": "Tag details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/tag_put"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Updated details of tag",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/tag_get"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Malformed tag object"
+                    }
+                },
+                "security": [
+                    {
+                        "jwt_key": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Tags"
+                ],
+                "summary": "Deletes a tag",
+                "description": "Requires user authentication.",
+                "operationId": "deleteTag",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the tag to delete",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Success"
+                    },
+                    "404": {
+                        "description": "Tag not found"
+                    }
+                },
+                "security": [
+                    {
+                        "jwt_key": []
+                    }
+                ]
+            }
+        },
+        "/authenticate": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Request an authentication token",
+                "operationId": "authenticate",
+                "requestBody": {
+                    "description": "Login credentials",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/login"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Authorization token",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/token"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Invalid email or password",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/token"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "login": {
+                "description": "Credentials for authentication",
+                "properties": {
+                    "email": {
+                        "description": "A user's email address",
+                        "type": "string"
+                    },
+                    "password": {
+                        "description": "The user's password",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "tokenInfo": {
+                "description": "Information about the user associated with the token",
+                "properties": {
+                    "email": {
+                        "description": "The user's email address",
+                        "type": "string"
+                    },
+                    "name": {
+                        "description": "The user's display name",
+                        "type": "string"
+                    },
+                    "id": {
+                        "description": "The user's unique ID",
+                        "type": "string"
+                    },
+                    "expiresIn": {
+                        "description": "How long from the issued moment the token is valid (in seconds)",
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "token": {
+                "description": "JWT information",
+                "properties": {
+                    "token": {
+                        "description": "An authenticated JSON web token",
+                        "type": "string"
+                    },
+                    "info": {
+                        "$ref": "#/components/schemas/tokenInfo"
+                    },
+                    "success": {
+                        "description": "Whether the authentication was successful",
+                        "type": "boolean"
+                    }
+                },
+                "type": "object"
+            },
+            "book_wos_get": {
+                "description": "The details of a book inside a series",
+                "properties": {
+                    "bookId": {
+                        "description": "The book's unique ID",
+                        "type": "integer"
+                    },
+                    "title": {
+                        "description": "The book's title",
+                        "type": "string"
+                    },
+                    "subtitle": {
+                        "description": "The book's subtitle",
+                        "type": "string",
+                        "default": null
+                    },
+                    "alternateTitle": {
+                        "description": "An alternate title for the book",
+                        "type": "string",
+                        "default": null
+                    },
+                    "comments": {
+                        "description": "Any comments about the book",
+                        "type": "string",
+                        "default": null
+                    },
+                    "authors": {
+                        "description": "The book's authors",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/person_get"
+                        },
+                        "default": null
+                    },
+                    "translators": {
+                        "description": "The book's translators",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/person_get"
+                        },
+                        "default": null
+                    },
+                    "editors": {
+                        "description": "The book's editors",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/person_get"
+                        },
+                        "default": null
+                    },
+                    "genres": {
+                        "description": "The book's genres",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/genre_get"
+                        },
+                        "default": null
+                    },
+                    "fullTitle": {
+                        "description": "The book's full title for display",
+                        "type": "string"
+                    },
+                    "sortableTitle": {
+                        "description": "The book's title for easy sorting",
+                        "type": "string"
+                    },
+                    "volume": {
+                        "description": "The book's volume within a series",
+                        "type": "integer"
+                    },
+                    "versions": {
+                        "description": "The available versions/editions of the book",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/version_get"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "book_get": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/book_wos_get"
+                    },
+                    {
+                        "description": "The details of a book",
+                        "properties": {
+                            "series": {
+                                "description": "The series to which the book belongs",
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/series_wob_get"
+                                }
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            },
+            "book_post": {
+                "description": "The details of a book to create",
+                "properties": {
+                    "title": {
+                        "description": "The book's title",
+                        "type": "string"
+                    },
+                    "subtitle": {
+                        "description": "The book's subtitle",
+                        "type": "string",
+                        "default": null
+                    },
+                    "alternateTitle": {
+                        "description": "An alternate title for the book",
+                        "type": "string",
+                        "default": null
+                    },
+                    "comments": {
+                        "description": "Any comments about the book",
+                        "type": "string",
+                        "default": null
+                    },
+                    "authors": {
+                        "description": "The personId values for the book's authors",
+                        "type": "array",
+                        "items": {
+                            "type": "integer"
+                        },
+                        "default": null
+                    },
+                    "editors": {
+                        "description": "The personId values for the book's editors",
+                        "type": "array",
+                        "items": {
+                            "type": "integer"
+                        },
+                        "default": null
+                    },
+                    "translators": {
+                        "description": "The personId values for the book's translators",
+                        "type": "array",
+                        "items": {
+                            "type": "integer"
+                        },
+                        "default": null
+                    },
+                    "genres": {
+                        "description": "The genres and tags describing the book",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/genre_in_book"
+                        },
+                        "default": null
+                    },
+                    "series": {
+                        "description": "The IDs of the series to which the book belongs",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/series_in_book"
+                        },
+                        "default": null
+                    },
+                    "versions": {
+                        "description": "The available versions/editions of the book",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/version_post"
+                        },
+                        "default": null
+                    }
+                },
+                "type": "object"
+            },
+            "book_put": {
+                "description": "The new details for a book",
+                "properties": {
+                    "bookId": {
+                        "description": "The ID of the book to update",
+                        "type": "integer"
+                    },
+                    "title": {
+                        "description": "The book's title",
+                        "type": "string"
+                    },
+                    "subtitle": {
+                        "description": "The book's subtitle",
+                        "type": "string",
+                        "default": null
+                    },
+                    "alternateTitle": {
+                        "description": "Any comments about the book",
+                        "type": "string",
+                        "default": null
+                    },
+                    "comments": {
+                        "description": "Any comments about the book",
+                        "type": "string",
+                        "default": null
+                    },
+                    "authors": {
+                        "description": "The personId values for the book's authors",
+                        "type": "array",
+                        "items": {
+                            "type": "integer"
+                        },
+                        "default": null
+                    },
+                    "editors": {
+                        "description": "The personId values for the book's editors",
+                        "type": "array",
+                        "items": {
+                            "type": "integer"
+                        },
+                        "default": null
+                    },
+                    "translators": {
+                        "description": "The personId values for the book's translators",
+                        "type": "array",
+                        "items": {
+                            "type": "integer"
+                        },
+                        "default": null
+                    },
+                    "genres": {
+                        "description": "The genres and tags describing the book",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/genre_in_book"
+                        },
+                        "default": null
+                    },
+                    "series": {
+                        "description": "The IDs of the series to which the book belongs",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/series_in_book"
+                        },
+                        "default": null
+                    },
+                    "versions": {
+                        "description": "The available versions/editions of the book",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/version_post"
+                        },
+                        "default": null
+                    }
+                },
+                "type": "object"
+            },
+            "series_in_book": {
+                "description": "Keys for a series a book belongs to",
+                "properties": {
+                    "seriesId": {
+                        "description": "The ID of the series to which the book belongs",
+                        "type": "integer"
+                    },
+                    "volume": {
+                        "description": "The volume of the book within the series",
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "genre_in_book": {
+                "description": "Keys for a genre/tag describing a book",
+                "properties": {
+                    "genreId": {
+                        "description": "The ID of a genre",
+                        "type": "integer"
+                    },
+                    "tagId": {
+                        "description": "The ID of a tag",
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "book_stub": {
+                "description": "Brief summary of book details",
+                "properties": {
+                    "bookId": {
+                        "description": "The book's unique ID",
+                        "type": "integer"
+                    },
+                    "title": {
+                        "description": "The book's title (with subtitle, if present)",
+                        "type": "string"
+                    },
+                    "authors": {
+                        "description": "The book's authors",
+                        "type": "string"
+                    },
+                    "genres": {
+                        "description": "The book's genres (and tags)",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/genre_get"
+                        }
+                    },
+                    "price": {
+                        "description": "The book's list price",
+                        "type": "number",
+                        "format": "float"
+                    },
+                    "series": {
+                        "description": "The series to which the book belongs",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/series_stub"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "series_stub": {
+                "description": "A summary of a series",
+                "properties": {
+                    "seriesId": {
+                        "description": "The series's ID",
+                        "type": "integer"
+                    },
+                    "title": {
+                        "description": "The series's title",
+                        "type": "string"
+                    },
+                    "volume": {
+                        "description": "The volume of a book in the series",
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "corpus": {
+                "description": "The works of an author",
+                "properties": {
+                    "personId": {
+                        "description": "The ID of the author",
+                        "type": "integer"
+                    },
+                    "name": {
+                        "description": "The person's name",
+                        "type": "string"
+                    },
+                    "sortableName": {
+                        "description": "The person's name formatted for easy sorting",
+                        "type": "string"
+                    },
+                    "bookStubs": {
+                        "description": "Summary details of the books by the author",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/corpus_book_stub"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "corpus_book_stub": {
+                "description": "Details of a book in an author's corpus",
+                "properties": {
+                    "bookId": {
+                        "description": "The book's unique ID",
+                        "type": "integer"
+                    },
+                    "title": {
+                        "description": "The book's title",
+                        "type": "string"
+                    },
+                    "sortableTitle": {
+                        "description": "The book's title formatted for easy sorting",
+                        "type": "string"
+                    },
+                    "otherAuthors": {
+                        "description": "The other authors of the book",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "genres": {
+                        "description": "The book's genres and tags",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/corpus_book_genre"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "corpus_book_genre": {
+                "description": "A book's genre information in an author's corpus",
+                "properties": {
+                    "genreId": {
+                        "description": "The unique ID of the genre",
+                        "type": "integer"
+                    },
+                    "name": {
+                        "description": "The genre's name",
+                        "type": "string"
+                    },
+                    "tags": {
+                        "description": "The sub-genre tags for the book",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/corpus_book_tag"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "corpus_book_tag": {
+                "description": "A tag associated with a book associated with an author",
+                "properties": {
+                    "tagId": {
+                        "description": "The tag's unique ID",
+                        "type": "integer"
+                    },
+                    "name": {
+                        "description": "The tag's name",
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "genre_get": {
+                "description": "The details of a genre",
+                "properties": {
+                    "genreId": {
+                        "description": "The genre's ID",
+                        "type": "integer"
+                    },
+                    "name": {
+                        "description": "The genre's name",
+                        "type": "string"
+                    },
+                    "shortName": {
+                        "description": "A shorter genre name for abbreviated views",
+                        "type": "string"
+                    },
+                    "tags": {
+                        "description": "List of tags under the genre",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/tag_get"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "genre_post": {
+                "description": "The details of the genre to add",
+                "properties": {
+                    "name": {
+                        "description": "The name of the genre to add",
+                        "type": "string"
+                    },
+                    "shortName": {
+                        "description": "A shorter genre name for abbreviated views",
+                        "type": "string"
+                    },
+                    "tags": {
+                        "description": "A list of new tag names to add under the new genre",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "example": "[\"tag1\", \"tag2\", \"tag3\"]"
+                    }
+                },
+                "type": "object"
+            },
+            "genre_put": {
+                "description": "The details of the genre to update; Adding/removing tags must be done through the Tags api",
+                "properties": {
+                    "genreId": {
+                        "description": "The ID of the genre to update",
+                        "type": "integer"
+                    },
+                    "name": {
+                        "description": "The new name for the genre",
+                        "type": "string"
+                    },
+                    "shortName": {
+                        "description": "A shorter genre name for abbreviated views",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "person_get": {
+                "description": "The details of a person",
+                "properties": {
+                    "personId": {
+                        "description": "The person's ID",
+                        "type": "integer"
+                    },
+                    "lastName": {
+                        "description": "The person's last name or the organization's name",
+                        "type": "string"
+                    },
+                    "firstAndMiddleNames": {
+                        "description": "The person's first and middle names, if applicable",
+                        "type": "string"
+                    },
+                    "titles": {
+                        "description": "The person's titles, if applicable",
+                        "type": "string"
+                    },
+                    "credentials": {
+                        "description": "The person's credentials, if applicable",
+                        "type": "string",
+                        "default": null
+                    },
+                    "isOrganization": {
+                        "description": "Whether the entity is an organization rather than an individual",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "sortableName": {
+                        "description": "The person's name formatted for conventional sorting",
+                        "type": "string"
+                    },
+                    "displayName": {
+                        "description": "The person's name formatted for display",
+                        "type": "string"
+                    },
+                    "displayNameShort": {
+                        "description": "The person's name formatted for abbreviated display",
+                        "type": "string"
+                    },
+                    "notes": {
+                        "description": "Any comments about the person or organation (e.g. for disambiguating people with the same name)",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "person_post": {
+                "description": "The details of a person",
+                "properties": {
+                    "lastName": {
+                        "description": "The person's last name or the organization's name",
+                        "type": "string"
+                    },
+                    "firstAndMiddleNames": {
+                        "description": "The person's first and middle names, if applicable",
+                        "type": "string",
+                        "default": null
+                    },
+                    "titles": {
+                        "description": "The person's titles, if applicable",
+                        "type": "string",
+                        "default": null
+                    },
+                    "credentials": {
+                        "description": "The person's credentials, if applicable",
+                        "type": "string",
+                        "default": null
+                    },
+                    "isOrganization": {
+                        "description": "Whether the person is an organization",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "notes": {
+                        "description": "Any comments about the person or organization (e.g. for disambiguating people with the same name)",
+                        "type": "string",
+                        "default": null
+                    }
+                },
+                "type": "object"
+            },
+            "person_put": {
+                "description": "The details of a person",
+                "properties": {
+                    "personId": {
+                        "description": "The person's ID",
+                        "type": "integer"
+                    },
+                    "lastName": {
+                        "description": "The person's last or only name, or the organization's name",
+                        "type": "string"
+                    },
+                    "firstAndMiddleNames": {
+                        "description": "The person's first and middle names, if applicable",
+                        "type": "string",
+                        "default": null
+                    },
+                    "titles": {
+                        "description": "The person's titles, if applicable",
+                        "type": "string",
+                        "default": null
+                    },
+                    "credentials": {
+                        "description": "The person's credentials, if applicable",
+                        "type": "string",
+                        "default": null
+                    },
+                    "isOrganization": {
+                        "description": "Whether the entity is an organization rather than an individual",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "notes": {
+                        "description": "Any comments about the person or organization (e.g. for disambiguating people with the same name)",
+                        "type": "string",
+                        "default": null
+                    }
+                },
+                "type": "object"
+            },
+            "series_wob_get": {
+                "description": "The details of a series to which a book belongs",
+                "properties": {
+                    "seriesId": {
+                        "description": "The series's unique ID",
+                        "type": "integer"
+                    },
+                    "title": {
+                        "description": "The title of the series",
+                        "type": "string"
+                    },
+                    "subtitle": {
+                        "description": "The subtitle of the series",
+                        "type": "string",
+                        "default": null
+                    },
+                    "price": {
+                        "description": "The series's price (if it is sold as a set)",
+                        "type": "number",
+                        "format": "float",
+                        "default": null
+                    },
+                    "isbn13": {
+                        "description": "The series's ISBN 13 (if it is sold as a set)",
+                        "type": "string",
+                        "default": null
+                    },
+                    "isbn10": {
+                        "description": "The series's ISBN 10 (if it is sold as a set)",
+                        "type": "string",
+                        "default": null
+                    },
+                    "amazonUrl": {
+                        "description": "The series's purchase URL (if it is sold as a set)",
+                        "type": "string",
+                        "default": null
+                    },
+                    "volume": {
+                        "description": "A book's volume number within a series",
+                        "type": "string",
+                        "default": 1
+                    }
+                },
+                "type": "object"
+            },
+            "series_get": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/series_wob_get"
+                    },
+                    {
+                        "description": "The details of a series",
+                        "properties": {
+                            "books": {
+                                "description": "The books in the series",
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/book_wos_get"
+                                }
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            },
+            "series_post": {
+                "description": "The details of a series to create",
+                "properties": {
+                    "title": {
+                        "description": "The title of the series",
+                        "type": "string"
+                    },
+                    "subtitle": {
+                        "description": "The subtitle of the series",
+                        "type": "string",
+                        "default": null
+                    },
+                    "price": {
+                        "description": "The series's list price (if it is sold as a set)",
+                        "type": "number",
+                        "format": "float",
+                        "default": null
+                    },
+                    "isbn10": {
+                        "description": "The series's ISBN 10 (if it is sold as a set)",
+                        "type": "string",
+                        "default": null
+                    },
+                    "isbn13": {
+                        "description": "The series's ISBN 13 (if it is sold as a set)",
+                        "type": "string",
+                        "default": null
+                    },
+                    "amazonUrl": {
+                        "description": "The series's purchase URL (if it is sold as a set)",
+                        "type": "string",
+                        "default": null
+                    },
+                    "books": {
+                        "description": "The books in the series",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/book_in_series"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "series_put": {
+                "description": "The details of a series to update",
+                "properties": {
+                    "title": {
+                        "description": "The title of the series",
+                        "type": "string"
+                    },
+                    "subtitle": {
+                        "description": "The subtitle of the series",
+                        "type": "string",
+                        "default": null
+                    },
+                    "price": {
+                        "description": "The series's list price (if it is sold as a set)",
+                        "type": "number",
+                        "format": "float",
+                        "default": null
+                    },
+                    "isbn10": {
+                        "description": "The series's ISBN 10 (if it is sold as a set)",
+                        "type": "string",
+                        "default": null
+                    },
+                    "isbn13": {
+                        "description": "The series's ISBN 13 (if it is sold as a set)",
+                        "type": "string",
+                        "default": null
+                    },
+                    "amazonUrl": {
+                        "description": "The series's purchase URL (if it is sold as a set)",
+                        "type": "string",
+                        "default": null
+                    },
+                    "books": {
+                        "description": "The books in the series",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/book_in_series"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "book_in_series": {
+                "description": "Keys for a book within a series",
+                "properties": {
+                    "bookId": {
+                        "description": "The ID of the book in the series",
+                        "type": "integer"
+                    },
+                    "volume": {
+                        "description": "The volume of the book within the series",
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "tag_get": {
+                "description": "The details of a tag",
+                "properties": {
+                    "tagId": {
+                        "description": "The tag's ID",
+                        "type": "integer"
+                    },
+                    "genreId": {
+                        "description": "The tag's owning genre's ID",
+                        "type": "integer"
+                    },
+                    "name": {
+                        "description": "The tag's name",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "tag_post": {
+                "description": "The details for a new tag",
+                "properties": {
+                    "genreId": {
+                        "description": "The tag's owning genre's ID",
+                        "type": "integer"
+                    },
+                    "name": {
+                        "description": "The new tag's name",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "tag_put": {
+                "description": "The new details for the tag",
+                "properties": {
+                    "tagId": {
+                        "description": "The ID of the tag to update",
+                        "type": "integer"
+                    },
+                    "genreId": {
+                        "description": "The ID of the tag's owning genre",
+                        "type": "integer"
+                    },
+                    "name": {
+                        "description": "The name of the tag",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "version_get": {
+                "description": "The details of a version/edition of a book",
+                "properties": {
+                    "versionId": {
+                        "description": "The version's unique ID",
+                        "type": "integer"
+                    },
+                    "bookId": {
+                        "description": "The ID of the owning book",
+                        "type": "integer"
+                    },
+                    "edition": {
+                        "description": "The book's edition",
+                        "type": "integer",
+                        "default": 1
+                    },
+                    "year": {
+                        "description": "The book's publication year",
+                        "type": "integer"
+                    },
+                    "publisher": {
+                        "description": "The book's publisher",
+                        "type": "string",
+                        "default": null
+                    },
+                    "location": {
+                        "description": "The book's publication location",
+                        "type": "string",
+                        "default": null
+                    },
+                    "isbn10": {
+                        "description": "The book's ISBN 10 identification",
+                        "type": "string",
+                        "default": null
+                    },
+                    "isbn13": {
+                        "description": "The book's ISBN 13 identification",
+                        "type": "string",
+                        "default": null
+                    },
+                    "price": {
+                        "description": "The book's list price/cost to replace",
+                        "type": "number",
+                        "format": "float"
+                    },
+                    "quantity": {
+                        "description": "The number of copies in stock",
+                        "type": "integer",
+                        "default": 1
+                    },
+                    "url": {
+                        "description": "A URL where the book is sold",
+                        "type": "string",
+                        "default": null
+                    },
+                    "isHardcover": {
+                        "description": "Whether the version is hardcover",
+                        "type": "boolean",
+                        "default": true
+                    },
+                    "isPaperback": {
+                        "description": "Whether the version is paperback",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "isMMPaperback": {
+                        "description": "Whether the version is mass-market paperback",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "isEbook": {
+                        "description": "Whether the version is an ebook",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "isLeatherbound": {
+                        "description": "Whether the version is leather-bound",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "isTextbook": {
+                        "description": "Whether the book is a textbook (meant for classroon instruction)",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "isHandBound": {
+                        "description": "Whether the version is hand-bound",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "detailsMixed": {
+                        "description": "Whether details here come from multiple versions",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "notes": {
+                        "description": "Any general comments about the version",
+                        "type": "string",
+                        "default": null
+                    }
+                },
+                "type": "object"
+            },
+            "version_post": {
+                "description": "The details of a version/edition of a book",
+                "properties": {
+                    "bookId": {
+                        "description": "The ID of the owning book",
+                        "type": "integer"
+                    },
+                    "edition": {
+                        "description": "The book's edition",
+                        "type": "integer",
+                        "default": 1
+                    },
+                    "year": {
+                        "description": "The book's publication year",
+                        "type": "integer"
+                    },
+                    "publisher": {
+                        "description": "The book's publisher",
+                        "type": "string",
+                        "default": null
+                    },
+                    "location": {
+                        "description": "The book's publication location",
+                        "type": "string",
+                        "default": null
+                    },
+                    "isbn10": {
+                        "description": "The book's ISBN 10 identification",
+                        "type": "string",
+                        "default": null
+                    },
+                    "isbn13": {
+                        "description": "The book's ISBN 13 identification",
+                        "type": "string",
+                        "default": null
+                    },
+                    "price": {
+                        "description": "The book's list price/cost to replace",
+                        "type": "number",
+                        "format": "float"
+                    },
+                    "quantity": {
+                        "description": "The number of copies in stock",
+                        "type": "integer",
+                        "default": 1
+                    },
+                    "url": {
+                        "description": "A URL where the book is sold",
+                        "type": "string",
+                        "default": null
+                    },
+                    "isHardcover": {
+                        "description": "Whether the version is hardcover",
+                        "type": "boolean",
+                        "default": true
+                    },
+                    "isPaperback": {
+                        "description": "Whether the version is paperback",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "isMMPaperback": {
+                        "description": "Whether the version is mass-market paperback",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "isEbook": {
+                        "description": "Whether the version is an ebook",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "isLeatherbound": {
+                        "description": "Whether the version is leather-bound",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "isTextbook": {
+                        "description": "Whether the book is a textbook (meant for classroon instruction)",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "isHandBound": {
+                        "description": "Whether the version is hand-bound",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "detailsMixed": {
+                        "description": "Whether details here come from multiple versions",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "notes": {
+                        "description": "Any general comments about the version",
+                        "type": "string",
+                        "default": null
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "jwt_key": {
+                "type": "apiKey",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    }
+}

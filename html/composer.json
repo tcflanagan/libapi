@@ -1,0 +1,7 @@
+{
+    "require": {
+        "doctrine/annotations": "^1.12",
+        "laminas/laminas-config": "^3.5",
+        "firebase/php-jwt": "^5.2"
+    }
+}
